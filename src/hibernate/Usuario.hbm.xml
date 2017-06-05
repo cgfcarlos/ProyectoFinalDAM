@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 16-may-2017 1:42:42 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="hibernate.Usuario" table="USUARIO">
+        <id name="usuarioid" type="int" access="field">
+            <column name="USUARIOID" />
+            <generator class="assigned" />
+        </id>
+        <property name="dniusuario" type="java.lang.String" access="field">
+            <column name="DNIUSUARIO" />
+        </property>
+        <property name="nombreusuario" type="java.lang.String" access="field">
+            <column name="NOMBREUSUARIO" />
+        </property>
+        <property name="apellidosusuario" type="java.lang.String" access="field">
+            <column name="APELLIDOSUSUARIO" />
+        </property>
+        <property name="nickusuario" type="java.lang.String" access="field">
+            <column name="NICKUSUARIO" />
+        </property>
+        <property name="passwordusuario" type="java.lang.String" access="field">
+            <column name="PASSWORDUSUARIO" />
+        </property>
+        <property name="tlfusuario" type="java.lang.String" access="field">
+            <column name="TLFUSUARIO" />
+        </property>
+        <set name="cuentas" table="CUENTABANCARIA" inverse="false" lazy="true">
+            <key>
+                <column name="USUARIOID" />
+            </key>
+            <one-to-many class="hibernate.CuentaBancaria" />
+        </set>
+    </class>
+</hibernate-mapping>

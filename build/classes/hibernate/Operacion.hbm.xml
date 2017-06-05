@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 16-may-2017 1:42:42 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="hibernate.Operacion" table="OPERACION">
+        <id name="operacionid" type="int" access="field">
+            <column name="OPERACIONID" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombreoperacion" type="java.lang.String" access="field">
+            <column name="NOMBREOPERACION" />
+        </property>
+        <property name="tipooperacion" type="java.lang.String" access="field">
+            <column name="TIPOOPERACION" />
+        </property>
+        <property name="cuantia" type="java.math.BigDecimal">
+            <column name="CUANTIA" />
+        </property>
+        <property name="fechaoperacion" type="java.util.Date" access="field">
+            <column name="FECHAOPERACION" />
+        </property>
+        <property name="fechavalor" type="java.util.Date" access="field">
+            <column name="FECHAVALOR" />
+        </property>
+    </class>
+</hibernate-mapping>

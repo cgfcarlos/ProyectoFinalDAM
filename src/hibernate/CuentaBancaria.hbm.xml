@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 16-may-2017 1:42:42 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="hibernate.CuentaBancaria" table="CUENTABANCARIA">
+        <id name="cuentabancariaid" type="int" access="field">
+            <column name="CUENTABANCARIAID" />
+            <generator class="assigned" />
+        </id>
+        <property name="numerocuenta" type="java.lang.String" access="field">
+            <column name="NUMEROCUENTA" />
+        </property>
+        <property name="titularcuenta" type="java.lang.String" access="field">
+        	<column name="TITULARCUENTA" />
+        </property>
+        <property name="entidadcuenta" type="java.lang.String" access="field">
+            <column name="ENTIDADCUENTA" />
+        </property>
+        <property name="tipocuenta" type="java.lang.String" access="field">
+            <column name="TIPOCUENTA" />
+        </property>
+        <property name="paisdomiciliacion" type="java.lang.String" access="field">
+            <column name="PAISDOMICILIACION" />
+        </property>
+        <property name="bic" type="java.lang.String" access="field">
+            <column name="BIC" />
+        </property>
+        <property name="saldo" type="java.math.BigDecimal">
+            <column name="SALDO" />
+        </property>
+        <set name="opereaciones" table="OPERACION" inverse="false" lazy="true">
+            <key>
+                <column name="CUENTABANCARIAID" />
+            </key>
+            <one-to-many class="hibernate.Operacion" />
+        </set>
+    </class>
+</hibernate-mapping>
