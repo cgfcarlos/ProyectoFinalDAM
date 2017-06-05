@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="servlets.servletLogin" %>
+<%@ page import="hibernate.Usuario" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -28,6 +29,7 @@
 
 	<%
 	HttpSession sesion = request.getSession();
+	Usuario us = (Usuario) sesion.getAttribute("usuario");
 	if(sesion.getAttribute("error")!=null && sesion.getAttribute("error")!=""){
 	%>
 	<div class="modal" id="errorloginModal" tabindex="-1" style="display: block;">
@@ -127,6 +129,9 @@
                         <li class="scroll"><a href="#testimonial"> Testimonial </a></li>-->
                        <li class="scroll"><a href="#get-in-touch">Contacta</a></li>
                        <li class="login">
+                       	<%
+                       	if(sesion.getAttribute("usuario")==null){
+                       	%>
                        	<form method="get" action="servletLogin">
                        		<input type="text" name="user" placeholder="Usuario" class="form-control-menu form-control">
                        		<input type="password" name="pwd" id="pwd" placeholder="Contraseña" class="form-control-menu form-control">
@@ -135,6 +140,16 @@
                        			<a href="registro.jsp">Crear una cuenta</a>
                        		</div>
                         </form>
+                        <%} else { %>
+                        <div class="dropdown">
+						    <a class="dropdown-toggle" data-toggle="dropdown"><%=us.getEmailusuario() %>
+						    <span class="caret"></span></a>
+						    <ul class="dropdown-menu">
+						      <li><a href="main.jsp">Info Cuenta</a></li>
+						      <li><a href="servletLogout">Desconectar</a></li>
+						    </ul>
+					  	</div>
+                        <%} %>
                        </li>                        
                     </ul>
                 </div>

@@ -47,11 +47,11 @@
                         <li class="scroll"><a href="main.jsp">Inicio </a></li>
                         <!-- <li class="scroll"><a href="servletGenerarExtracto">Generar Extracto</a></li> -->
                         <li class="scroll"><a href="#portfolio">Plantilla</a></li>
-                        <li class="scroll"><a href="#meet-team">Operaciones</a></li>
+                        <li class="scroll active"><a href="#meet-team">Operaciones</a></li>
                         <!--<li class="scroll"><a href="#pricing">Conocimientos</a></li>
                         <li class="scroll"><a href="#blog">  Blog </a></li
                         <li class="scroll"><a href="#testimonial"> Testimonial </a></li>-->
-                       <li class="scroll active"><a href="#get-in-touch">Ajustes</a></li>
+                       <li class="scroll"><a href="#get-in-touch">Ajustes</a></li>
                        <li class="scroll"><a href="servletLogout">Cerrar sesión</a></li>
                     </ul>
                 </div>
