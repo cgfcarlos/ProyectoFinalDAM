@@ -10,6 +10,7 @@
     <meta name="author" content="Carlos Glez Fuentes">
     <title>Página Oficial Carlos González Fuentes</title>
 	<!-- core CSS -->
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
