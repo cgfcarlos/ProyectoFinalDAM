@@ -73,6 +73,7 @@ public class servletLogin extends HttpServlet {
 				String usuario = "";
 				while (resultSet.next()) {
 					usuario = resultSet.getString(5);
+					us.setUsuarioId(resultSet.getInt(1));
 					us.setDniUsuario(resultSet.getString(2));
 					us.setNombreUsuario(resultSet.getString(3));
 					us.setApellidosUsuario(resultSet.getString(4));

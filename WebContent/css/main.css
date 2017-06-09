@@ -87,6 +87,17 @@ article{
 
 .dropdown{
     padding-top: 5px;
+    color:#777;
+}
+.color-gray{
+	color:#777;
+}
+.color-gray:hover{
+	color: #8BC34A;
+}
+.dropdown-op{
+	padding-top: 17px;
+    color:#777;
 }
 
 h1,

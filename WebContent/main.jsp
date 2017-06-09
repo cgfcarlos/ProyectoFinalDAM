@@ -102,7 +102,17 @@
                         <li class="scroll active"><a href="#home">Inicio </a></li>
                         <li class="scroll"><a href="#" data-target="#extractoModal" data-toggle="modal">Generar Extracto</a></li>
                         <li class="scroll"><a href="servletExcel">Generar Excel</a></li>
-                        <li class="scroll"><a href="servletOperaciones">Operaciones</a></li>
+                        <li class="scroll" role="button">
+                        	<div class="dropdown-op">
+						    <a class="dropdown-toggle color-gray" data-toggle="dropdown">Operaciones
+						    <span class="caret"></span></a>
+						    <ul class="dropdown-menu">
+						      <li><a href="operaciones.jsp">Ingreso/Gasto</a></li>
+						      <li><a href="prestamo.jsp">Préstamo</a></li>
+						      <li><a href="transaccion.jsp">Transacción</a></li>
+						    </ul>
+					  	</div>
+                       	</li>
                         <!--<li class="scroll"><a href="#pricing">Conocimientos</a></li>
                         <li class="scroll"><a href="#blog">  Blog </a></li
                         <li class="scroll"><a href="#testimonial"> Testimonial </a></li>-->

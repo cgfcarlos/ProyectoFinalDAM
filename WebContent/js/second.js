@@ -1,4 +1,3 @@
-//javascript para ciertas funciones aisladas del main
 function displayPopover() {
     $('[data-toggle="popover"]').popover();
 }
@@ -11,10 +10,25 @@ function amortizacion() {
 	}
 
 	var capital = document.getElementById('capital').value;
-	if(capital==null || capital==undefined || capital==""){
+	if(capital===null || capital===undefined || capital===""){
 		document.getElementById('capital').classList.add('error');
+
+		var tamano = document.getElementById('capital').parentElement.children;
+		if(tamano.length==3){
+			document.getElementById('capital').parentElement.removeChild(tamano[2]);	
+		}
+		
+		var error = document.createElement('SPAN');
+		error.appendChild(document.createTextNode("Rellenar"));
+		error.setAttribute("name","error");
+		error.setAttribute("class","alert-danger");
+		document.getElementById('capital').parentElement.appendChild(error);
 	}
 	else{
+		var tamano2 = document.getElementById('capital').parentElement.children;
+		if(tamano2.length==3){
+			document.getElementById('capital').parentElement.removeChild(tamano2[2]);	
+		}
 		document.getElementById('capital').classList.remove('error');	
 		var realizarPrestamo = document.getElementById('realizarPrestamo');
 		var ps = [];
@@ -94,9 +108,133 @@ function amortizacion() {
 
 		realizarPrestamo.disabled=false;
 
+
+
+	}
+}
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+function validateNumber(number){
+	var re = /^[0-9]+$/;
+	return re.test(number);
+}
+
+function validatePrestamo() {
+	var span;
+	span = document.createElement('SPAN');
+	span.appendChild(document.createTextNode("Rellenar"));
+	span.setAttribute("name","error");
+	span.setAttribute("class","alert-danger");	
+	var fechaconcesion = document.getElementById('fechaconcesion').value;
+	var fechafinalizacion = document.getElementById('fechafinalizacion').value;
+	var capital = document.getElementById('capital').value;
+	var validate =true;
+	if(capital===null || capital===undefined || capital=== ""){
+		document.getElementById('capital').classList.add('error');
+		if(document.getElementById('capital').parentElement.children.length<3){
+			document.getElementById('capital').parentElement.appendChild(span);
+		}
+		validate =false;
+	}
+	if((fechafinalizacion===null || fechafinalizacion===undefined || fechafinalizacion==="")){
+		document.getElementById('fechafinalizacion').classList.add('error');
+		if(document.getElementById('fechafinalizacion').parentElement.children.length<3){
+			document.getElementById('fechafinalizacion').parentElement.appendChild(span);	
+		}
+		
+		validate =false;
+	}
+	if((fechaconcesion===null || fechaconcesion===undefined || fechaconcesion==="")){
+		document.getElementById('fechaconcesion').classList.add('error');
+		if(document.getElementById('fechafinalizacion').parentElement.children.length<3){
+			document.getElementById('fechaconcesion').parentElement.appendChild(span);	
+		}
+		validate=false;
+	}
+	if(validate) {
+		document.getElementById('capital').classList.remove('error');
+		document.getElementById('fechaconcesion').classList.remove('error');
+		document.getElementById('fechafinalizacion').classList.remove('error');
+		var tamanoC = document.getElementById('capital').parentElement.children;
+		if(tamanoC.length==3){
+			document.getElementById('capital').parentElement.removeChild(tamanoC[2]);	
+		}
+		var tamanoFC = document.getElementById('fechaconcesion').parentElement.children;
+		if(tamanoFC.length==3){
+			document.getElementById('fechaconcesion').parentElement.removeChild(tamanoFC[2]);	
+		}
+		var tamanoFF = document.getElementById('fechafinalizacion').parentElement.children;
+		if(tamanoFF.length==3){
+			document.getElementById('fechafinalizacion').parentElement.removeChild(tamanoFF[2]);	
+		}
+	}
+	return validate;
+
+}
+
+function selectBeneficiary(btn) {
+	var beneficiario = btn.value;
+	document.getElementById('beneficiario').value=beneficiario;
+}
+
+function validateTransaccion(){
+	var span;
+	span = document.createElement('SPAN');
+	span.appendChild(document.createTextNode("Rellenar"));
+	span.setAttribute("name","error");
+	span.setAttribute("class","alert-danger");	
+	var beneficiario = document.getElementById('beneficiario').value;
+	var banco = document.getElementById('banco').value;
+	var numCuenta = document.getElementById('numcuenta').value;
+	var concepto = document.getElementById('concepto').value;
+	var importe = document.getElementById('importe').value;
+	var validateT = true;
+	if((beneficiario==null || beneficiario==undefined || beneficiario=="")){
+		document.getElementById('beneficiario').appendChild(span);
+		validateT = false;
+	}
+	if((banco==null || banco==undefined || banco=="")){
+		document.getElementById('banco').appendChild(span);
+		validateT = false;
+	}
+	if((numCuenta==null || numCuenta==undefined || numCuenta=="")){
+		document.getElementById('numcuenta').appendChild(span);
+		validateT = false;
+	}
+	if((concepto==null || concepto==undefined || concepto=="")){
+		document.getElementById('concepto').appendChild(span);
+		validateT = false;
+	}
+	if((importe==null || importe==undefined || importe=="")){
+		document.getElementById('importe').appendChild(span);
+		validateT = false;
+	}
+	if(validateT){
+		var tamanoBene = document.getElementById('beneficiario').parentElement.children;
+		if(tamanoBene.length==3){
+			document.getElementById('beneficiario').parentElement.removeChild();
+		}
+		var tamanoBanc = document.getElementById('banco').parentElement.children;
+		if(tamanoBanc.length==3){
+			document.getElementById('banco').parentElement.removeChild();
+		}
+		var tamanoNumC = document.getElementById('numcuenta').parentElement.children;
+		if(tamanoNumC.length==3){
+			document.getElementById('numcuenta').parentElement.removeChild();
+		}
+		var tamanoConc = document.getElementById('concepto').parentElement.children;
+		if(tamanoConc.length==3){
+			document.getElementById('concepto').parentElement.removeChild([2]);
+		}
+		var tamanoImp = document.getElementById('importe').parentElement.children;
+		if(tamanoImp.length==3){
+			document.getElementById('importe').parentElement.removeChild([2]);
+		}
 	}
 	
-	function validatePrestamo(){
-		
-	}
+	return validateT;
 }

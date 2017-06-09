@@ -99,7 +99,7 @@
                     <ul class="nav navbar-nav">
                         <li class="scroll"><a href="main.jsp">Inicio </a></li>
                         <!-- <li class="scroll"><a href="servletGenerarExtracto">Generar Extracto</a></li> -->
-                        <li class="scroll"><a href="#portfolio">Plantilla</a></li>
+                        <!-- <li class="scroll"><a href="#portfolio">Plantilla</a></li>-->
                         <li class="scroll"><a href="operaciones.jsp">Operaciones</a></li>
                         <!--<li class="scroll"><a href="#pricing">Conocimientos</a></li>
                         <li class="scroll"><a href="#blog">  Blog </a></li
@@ -174,7 +174,7 @@
     			</div>
     			<div class="form-group text-center">
 						<input class="btn btn-primary" type="submit" name="crear" value="Guardar Cambios">
-						<button data-target="#deleteModal" data-toggle="modal">Borrar Usuario</button>
+						<button class="btn btn-primary" data-target="#deleteModal" data-toggle="modal">Borrar Usuario</button>
 				</div>
    			</form>
     	</div>

@@ -104,7 +104,7 @@ public class servletRegistro extends HttpServlet {
 
 					int filas = st.executeUpdate(query);
 
-					if (filas >= 1) {
+					if (filas == 1) {
 						File theDir = new File("WebContent\\usuarios\\" + nick);
 
 						// if the directory does not exist, create it
@@ -138,7 +138,7 @@ public class servletRegistro extends HttpServlet {
 									+ numCuenta + "','" + titularCuenta + "','" + entidad + "', '" + tipoCuenta + "','"
 									+ pais + "','" + bic + "'," + saldo + "," + usuarioid + ")";
 							int filasCuenta = st.executeUpdate(query);
-							if (filasCuenta >= 1) {
+							if (filasCuenta == 1) {
 								String queryC = "SELECT titularcuenta, numerocuenta, entidadcuenta, saldo, tipocuenta FROM cuentabancaria JOIN usuario ON cuentabancaria.usuarioid LIKE usuario.usuarioid WHERE nickusuario LIKE '"
 										+ nick + "' AND passwordusuario LIKE '" + pass + "'";
 

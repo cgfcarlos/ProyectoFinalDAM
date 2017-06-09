@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="servlets.servletPrestamo" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -39,12 +40,8 @@
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
                         <li class="scroll"><a href="main.jsp">Inicio </a></li>
-                        <!-- <li class="scroll"><a href="servletGenerarExtracto">Generar Extracto</a></li> -->
                         <li class="scroll"><a href="#portfolio">Plantilla</a></li>
                         <li class="scroll"><a href="operaciones.jsp">Operaciones</a></li>
-                        <!--<li class="scroll"><a href="#pricing">Conocimientos</a></li>
-                        <li class="scroll"><a href="#blog">  Blog </a></li
-                        <li class="scroll"><a href="#testimonial"> Testimonial </a></li>-->
                        <li class="scroll active"><a href="ajustes.jsp">Ajustes</a></li>
                        <li class="scroll"><a href="servletLogout">Cerrar sesión</a></li>
                     </ul>
@@ -56,7 +53,7 @@
     <section id="get-in-touch">
         <h2 class="text-center">Préstamos</h2>
         <div class="container">
-            <a href="#" data-toggle="popover" data-placement="top" data-content="Un préstamo bancario es el crédito que concede un banco. La ganancia del banco estará en que, al devolver el dinero, la persona tendrá que entregar un adicional en concepto de intereses." onclick="displayPopover()"><span class="glyphicon glyphicon-info-sign"></span></a>
+            <a data-toggle="popover" data-placement="top" data-content="Un préstamo bancario es el crédito que concede un banco. La ganancia del banco estará en que, al devolver el dinero, la persona tendrá que entregar un adicional en concepto de intereses." onclick="displayPopover()"><span class="glyphicon glyphicon-info-sign"></span></a>
             <div class="row">
                 <div class="col-md-6">
                     <span>Capital (Montante)</span>
@@ -119,7 +116,7 @@
                 </table>
             </div>
             <div class="row text-center">
-                <form action="servletPrestamo" method="get">
+                <form action="servletPrestamo" method="get" onsubmit="return validatePrestamo();">
                     <input type="submit" class="btn btn-primary"  value="Realizar Préstamo" id="realizarPrestamo" disabled="disabled">
                 </form>
             </div>

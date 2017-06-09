@@ -182,6 +182,10 @@ public class servletGenerarExtracto extends HttpServlet {
 
 			int row = st.executeUpdate(query);
 
+			cuenta.setSaldo(resultado);
+
+			sesion.setAttribute("cuenta", cuenta);
+
 			if (row == 1) {
 				documento.add(tabla);
 				documento.addTitle("Extracto");
