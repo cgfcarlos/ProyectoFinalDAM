@@ -142,9 +142,9 @@
                         </form>
                         <%} else { %>
                         <div class="dropdown">
-						    <a class="dropdown-toggle" data-toggle="dropdown"><%=us.getEmailusuario() %>
+						    <a class="dropdown-toggle color-gray" data-toggle="dropdown"><%=us.getEmailusuario() %>
 						    <span class="caret"></span></a>
-						    <ul class="dropdown-menu">
+						    <ul class="dropdown-menu dropdown-menu-aux">
 						      <li><a href="main.jsp">Info Cuenta</a></li>
 						      <li><a href="servletLogout">Desconectar</a></li>
 						    </ul>
@@ -201,7 +201,7 @@ en la cual puedes disfrutar de las mismas funcionalidades que en la web :D</p>
 
             <div class="section-header">
                 <h2 class="section-title text-center wow fadeInDown">Nuestros Servicios</h2>
-                <p class="text-center wow fadeInDown">La web esta dispuesta para simular la contabilidad de cuentas bancarias de una persona de a pie, <br> además ofrecemos mas funcionalidades para su disfrute</p>
+                <p class="text-center wow fadeInDown">La web esta dispuesta para simular la contabilidad de cuentas bancarias de una persona, <br> además ofrecemos más funcionalidades para su disfrute</p>
             </div>
 
             <div class="row">

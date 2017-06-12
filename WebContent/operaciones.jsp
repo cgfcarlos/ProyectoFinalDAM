@@ -46,8 +46,18 @@
                     <ul class="nav navbar-nav">
                         <li class="scroll"><a href="main.jsp">Inicio </a></li>
                         <!-- <li class="scroll"><a href="servletGenerarExtracto">Generar Extracto</a></li> -->
-                        <li class="scroll"><a href="#portfolio">Plantilla</a></li>
-                        <li class="scroll active"><a href="#meet-team">Operaciones</a></li>
+                        <!--  <li class="scroll"><a href="#portfolio">Plantilla</a></li>-->
+                        <li class="scroll" role="button">
+                        	<div class="dropdown-op">
+							    <a class="dropdown-toggle color-gray" data-toggle="dropdown">Operaciones
+							    <span class="caret"></span></a>
+							    <ul class="dropdown-menu dropdown-menu-aux">
+							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="operaciones.jsp">Ingreso/Gasto</a></li>
+							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="prestamo.jsp">Préstamo</a></li>
+							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="transaccion.jsp">Transacción</a></li>
+							    </ul>
+					  		</div>
+                       	</li>
                         <!--<li class="scroll"><a href="#pricing">Conocimientos</a></li>
                         <li class="scroll"><a href="#blog">  Blog </a></li
                         <li class="scroll"><a href="#testimonial"> Testimonial </a></li>-->
@@ -65,20 +75,21 @@
     		<div class="alert alert-danger text-center"><%=sesion.getAttribute("error").toString()%></div>
     		<%sesion.removeAttribute("error");%>
     		<%} %>
-    		<form action="servletOperaciones" method="post">
-    			<%
+			<form action="servletOperaciones" method="post" onsubmit="return validateOperacion();">
+				<%
     				
     				Usuario usuario = (Usuario) sesion.getAttribute("usuario");
     				CuentaBancaria cuentaBancaria = (CuentaBancaria) sesion.getAttribute("cuenta");
     				Operacion operacion = new Operacion();
     			%>
-    			<%if(request.getAttribute("error")!=null){ %>
+				<%if(request.getAttribute("error")!=null){ %>
 				<div class="row text-center">
 					<span class="alert alert-danger"><%=request.getAttribute("error") %></span>
 				</div>
 				<%} %>
 				<div class="form-group">
-					<input class="form-control" name="nombreOperacion" type="text" placeholder="Nombre Operación" maxlength="20">
+					<input class="form-control" name="nombreOperacion" type="text"
+						placeholder="Nombre Operación" maxlength="20">
 				</div>
 				<div class="form-group">
 					<select class="form-control" name="tipoOperacion">
@@ -87,21 +98,25 @@
 					</select>
 				</div>
 				<div class="form-group">
-					<input class="form-control" name="cuantia" type="number" placeholder="Cuantía" maxlength="9"> 
+					<input class="form-control" name="cuantia" type="number"
+						placeholder="Cuantía" maxlength="9" onkeypress="return validateNumber(this,event);">
 				</div>
 				<div class="form-group">
-					<input class="form-control" name="fechaOperacion" type="date" placeholder="Fecha Operación">
+					<input class="form-control" name="fechaOperacion" type="date"
+						placeholder="Fecha Operación">
 				</div>
 				<div class="form-group">
-					<input class="form-control" name="fechaValor" type="date" placeholder="Fecha Valor">
+					<input class="form-control" name="fechaValor" type="date"
+						placeholder="Fecha Valor">
 				</div>
 				<div class="form-group text-center">
-					<input class="btn btn-primary" name="submit" type="submit" value="Aceptar">
+					<input class="btn btn-primary" name="submit" type="submit"
+						value="Aceptar">
 				</div>
-    		</form>
-				
-   			
-    	</div>
+			</form>
+
+
+		</div>
     </section>
 
     <footer id="footer">
@@ -121,6 +136,7 @@
 	    <script src="js/jquery.inview.min.js"></script>
 	    <script src="js/wow.min.js"></script>
 	    <script src="js/main.js"></script>
+	    <script src="js/second.js"></script>
 		<script src="js/scrolling-nav.js"></script>
 	<script>
 	

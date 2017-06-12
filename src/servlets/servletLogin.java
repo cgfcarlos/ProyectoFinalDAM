@@ -84,8 +84,8 @@ public class servletLogin extends HttpServlet {
 				}
 				resultSet.close();
 				if (!usuario.isEmpty()) {
-					String queryC = "SELECT cuentabancariaid, titularcuenta, numerocuenta, entidadcuenta, saldo, tipocuenta FROM cuentabancaria JOIN usuario ON cuentabancaria.usuarioid LIKE usuario.usuarioid WHERE nickusuario LIKE '"
-							+ user + "' AND passwordusuario LIKE '" + pass + "'";
+					String queryC = "SELECT cuentabancariaid, titularcuenta, numerocuenta, entidadcuenta, saldo, tipocuenta, paisdomiciliacion, bic FROM cuentabancaria JOIN usuario ON cuentabancaria.usuarioid LIKE usuario.usuarioid WHERE nickusuario LIKE '"
+							+ user + "' OR emailusuario LIKE '" + user + "' AND passwordusuario LIKE '" + pass + "'";
 
 					resultSet = st.executeQuery(queryC);
 					CuentaBancaria cuentaBancaria = new CuentaBancaria();
@@ -96,6 +96,8 @@ public class servletLogin extends HttpServlet {
 						cuentaBancaria.setEntidadCuenta(resultSet.getString(4));
 						cuentaBancaria.setSaldo(resultSet.getBigDecimal(5));
 						cuentaBancaria.setTipoCuenta(resultSet.getString(6));
+						cuentaBancaria.setPaisDomiciliacion(resultSet.getString(7));
+						cuentaBancaria.setBIC(resultSet.getString(8));
 					}
 					resultSet.close();
 

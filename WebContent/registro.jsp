@@ -109,9 +109,9 @@
 						<input class="form-control" required type="text" name="bic" placeholder="BIC">
 					</div>
 					<div class="form-group">
-						<input class="form-control" required type="number" name="saldo" placeholder="Saldo">
+						<input class="form-control" required type="number" name="saldo" placeholder="Saldo" onkeypress="validateNumber(this, evt)">
 					</div>
-					<div class="form-group">
+					<div class="form-group text-center">
 						<input class="btn btn-primary" type="submit" name="crear" value="Crear cuenta">
 					</div>
 				</fieldset>
@@ -136,6 +136,7 @@
 	    <script src="js/jquery.inview.min.js"></script>
 	    <script src="js/wow.min.js"></script>
 	    <script src="js/main.js"></script>
+	    <script src="js/second.js"></script>
 		<script src="js/scrolling-nav.js"></script>
 	<script>
 	

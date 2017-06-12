@@ -78,8 +78,18 @@
                     <ul class="nav navbar-nav">
                         <li class="scroll"><a href="main.jsp">Inicio </a></li>
                         <!-- <li class="scroll"><a href="servletGenerarExtracto">Generar Extracto</a></li> -->
-                        <li class="scroll"><a href="#portfolio">Plantilla</a></li>
-                        <li class="scroll"><a href="operaciones.jsp">Operaciones</a></li>
+                        <!-- <li class="scroll"><a href="#portfolio">Plantilla</a></li>-->
+                        <li class="scroll" role="button">
+                        	<div class="dropdown-op">
+							    <a class="dropdown-toggle color-gray" data-toggle="dropdown">Operaciones
+							    <span class="caret"></span></a>
+							    <ul class="dropdown-menu dropdown-menu-aux">
+							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="operaciones.jsp">Ingreso/Gasto</a></li>
+							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="prestamo.jsp">Préstamo</a></li>
+							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="transaccion.jsp">Transacción</a></li>
+							    </ul>
+					  		</div>
+                       	</li>
                         <!--<li class="scroll"><a href="#pricing">Conocimientos</a></li>
                         <li class="scroll"><a href="#blog">  Blog </a></li
                         <li class="scroll"><a href="#testimonial"> Testimonial </a></li>-->
@@ -107,8 +117,19 @@
 						<%
 						for(Usuario us: usuarios){
 							if(us.getUsuarioId()!=user.getUsuarioId()){
+								String queryC = "SELECT numerocuenta, entidadcuenta FROM cuentabancaria where usuarioid = "+us.getUsuarioId();
+								
+								ResultSet resultSet2 = st.executeQuery(queryC);
+								String numerocuenta="";
+								String entidad="";
+								while (resultSet2.next()) {
+									numerocuenta=resultSet2.getString(1);
+									entidad=resultSet2.getString(2);
+								}
+								resultSet2.close();
+								
 						%>
-								<button type="submit" name="beneficiario" class="list-group-item list-group-item-aux" onclick="selectBeneficiary(this)" value="<%=us.getNombreUsuario()+" "+us.getApellidosUsuario()%>"><%=us.getNombreUsuario()+" "+us.getApellidosUsuario()%></button>
+								<button type="submit" name="beneficiario" class="list-group-item list-group-item-aux" onclick="selectBeneficiary(this)" value="<%=us.getNombreUsuario()+" "+us.getApellidosUsuario()+";"+numerocuenta+";"+entidad%>"><%=us.getNombreUsuario()+" "+us.getApellidosUsuario()%></button>
 						<%	
 							}
 						}
@@ -141,7 +162,7 @@
     			</div>
     			<div class="row">
     				<label for="importe">Importe</label>
-    				<input type="number" name="importe" id="importe" class="form-control" placeholder="Cuantía">
+    				<input type="number" name="importe" id="importe" class="form-control" placeholder="Cuantía" onkeypress="return validateNumber(this,event);">
     			</div>
     			<div class="row text-center" style="padding-top: 1em;">
     				<input type="submit" name="transaccion" class="btn btn-primary" value="Realizar Transacción">
@@ -173,23 +194,5 @@
     <script src="js/main.js"></script>
     <script src="js/second.js"></script>
     <script src="js/scrolling-nav.js"></script>
-<script>
-
-    $(document).ready(function($) {
-      $("#owl-example").owlCarousel();
-    });
-
-    $("body").data("page", "frontpage");
-
-$("#owl-example").owlCarousel({ 
-        items:3,   
-/*        itemsDesktop : [1199,3],
-        itemsDesktopSmall : [980,9],
-        itemsTablet: [768,5],
-        itemsTabletSmall: false,
-        itemsMobile : [479,4]*/
-});
-
-    </script>
 </body>
 </html>

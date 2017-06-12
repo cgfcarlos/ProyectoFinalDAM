@@ -90,7 +90,6 @@ public class servletRegistro extends HttpServlet {
 
 				Statement st = con.createStatement();
 				
-
 				String queryComprob = "SELECT usuarioid FROM usuario WHERE nickusuario LIKE '" + nick
 						+ "' OR emailusuario LIKE '" + email + "'";
 
@@ -105,7 +104,10 @@ public class servletRegistro extends HttpServlet {
 					int filas = st.executeUpdate(query);
 
 					if (filas == 1) {
-						File theDir = new File("WebContent\\usuarios\\" + nick);
+						File jsp = new File(
+								request.getSession().getServletContext().getRealPath(request.getServletPath()));
+						File dir = jsp.getParentFile();
+						File theDir = new File(dir.getAbsolutePath() + "\\usuarios\\" + nick);
 
 						// if the directory does not exist, create it
 						if (!theDir.exists()) {
@@ -132,11 +134,13 @@ public class servletRegistro extends HttpServlet {
 						String queryComprobCuenta = "SELECT cuentabancariaid FROM cuentabancaria WHERE numerocuenta LIKE '"
 								+ numCuenta + "'";
 						ResultSet filasComprobCuenta = st.executeQuery(queryComprobCuenta);
+						// TODO:REVISAR registro
 						if (!filasComprobCuenta.first()) {
 							filasComprobCuenta.close();
-							query = "INSERT INTO cuentabancaria (numerocuenta, titularcuenta, entidadcuenta, tipocuenta, paisdomiciliacion, bic, saldo, usuarioid) VALUES ('"
-									+ numCuenta + "','" + titularCuenta + "','" + entidad + "', '" + tipoCuenta + "','"
-									+ pais + "','" + bic + "'," + saldo + "," + usuarioid + ")";
+							query = "UPDATE cuentabancaria SET numerocuenta='" + numCuenta + "', titularcuenta='"
+									+ titularCuenta + "',entidadcuenta='" + entidad + "', tipocuenta'" + tipoCuenta
+									+ "',paisdomiciliacion='" + pais + "',bic='" + bic + "',saldo=" + saldo
+									+ " WHERE cuentabancariaid = last_insert_id()";
 							int filasCuenta = st.executeUpdate(query);
 							if (filasCuenta == 1) {
 								String queryC = "SELECT titularcuenta, numerocuenta, entidadcuenta, saldo, tipocuenta FROM cuentabancaria JOIN usuario ON cuentabancaria.usuarioid LIKE usuario.usuarioid WHERE nickusuario LIKE '"

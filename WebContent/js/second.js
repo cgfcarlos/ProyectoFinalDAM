@@ -118,123 +118,321 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-function validateNumber(number){
-	var re = /^[0-9]+$/;
-	return re.test(number);
+function validateNumber(el, evt) {
+	var validate = true;
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    var number = el.value.split('.');
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+        validate= false;
+    }
+    //just one dot
+    if(number.length>1 && charCode == 46){
+         validate= false;
+    }
+    //get the carat position
+    var caratPos = getSelectionStart(el);
+    var dotPos = el.value.indexOf(".");
+    if( caratPos > dotPos && dotPos>-1 && (number[1].length > 1)){
+        validate= false;
+    }
+    return validate;
+}
+
+function getSelectionStart(o) {
+	if (o.createTextRange) {
+		var r = document.selection.createRange().duplicate()
+		r.moveEnd('character', o.value.length)
+		if (r.text == '') return o.value.length
+		return o.value.lastIndexOf(r.text)
+	} else return o.selectionStart
 }
 
 function validatePrestamo() {
 	var span;
 	span = document.createElement('SPAN');
-	span.appendChild(document.createTextNode("Rellenar"));
+	span.appendChild(document.createTextNode("Rellenar Correctamente"));
 	span.setAttribute("name","error");
 	span.setAttribute("class","alert-danger");	
 	var fechaconcesion = document.getElementById('fechaconcesion').value;
 	var fechafinalizacion = document.getElementById('fechafinalizacion').value;
+	
+	var span2;
+	span2 = document.createElement('SPAN');
+	span2.appendChild(document.createTextNode("Rellenar Correctamente"));
+	span2.setAttribute("name","error");
+	span2.setAttribute("class","alert-danger");	
+	
+	var span3;
+	span3 = document.createElement('SPAN');
+	span3.appendChild(document.createTextNode("Rellenar Correctamente"));
+	span3.setAttribute("name","error");
+	span3.setAttribute("class","alert-danger");	
 	var capital = document.getElementById('capital').value;
 	var validate =true;
-	if(capital===null || capital===undefined || capital=== ""){
+	var validateCapital = true;
+	var validateFF = true;
+	var validateFCf
+	if((capital===null || capital===undefined || capital=== "")){
 		document.getElementById('capital').classList.add('error');
 		if(document.getElementById('capital').parentElement.children.length<3){
 			document.getElementById('capital').parentElement.appendChild(span);
 		}
+		validateCapital=false;
 		validate =false;
 	}
 	if((fechafinalizacion===null || fechafinalizacion===undefined || fechafinalizacion==="")){
 		document.getElementById('fechafinalizacion').classList.add('error');
 		if(document.getElementById('fechafinalizacion').parentElement.children.length<3){
-			document.getElementById('fechafinalizacion').parentElement.appendChild(span);	
+			document.getElementById('fechafinalizacion').parentElement.appendChild(span2);	
 		}
-		
+		validateFF = false;
 		validate =false;
 	}
 	if((fechaconcesion===null || fechaconcesion===undefined || fechaconcesion==="")){
 		document.getElementById('fechaconcesion').classList.add('error');
-		if(document.getElementById('fechafinalizacion').parentElement.children.length<3){
-			document.getElementById('fechaconcesion').parentElement.appendChild(span);	
+		if(document.getElementById('fechaconcesion').parentElement.children.length<3){
+			document.getElementById('fechaconcesion').parentElement.appendChild(span3);	
 		}
+		validateFC=false;
 		validate=false;
 	}
-	if(validate) {
+
+	var tamanoC = document.getElementById('capital').parentElement.children;
+	if(tamanoC.length==3 && validateCapital){
 		document.getElementById('capital').classList.remove('error');
-		document.getElementById('fechaconcesion').classList.remove('error');
-		document.getElementById('fechafinalizacion').classList.remove('error');
-		var tamanoC = document.getElementById('capital').parentElement.children;
-		if(tamanoC.length==3){
-			document.getElementById('capital').parentElement.removeChild(tamanoC[2]);	
-		}
-		var tamanoFC = document.getElementById('fechaconcesion').parentElement.children;
-		if(tamanoFC.length==3){
-			document.getElementById('fechaconcesion').parentElement.removeChild(tamanoFC[2]);	
-		}
-		var tamanoFF = document.getElementById('fechafinalizacion').parentElement.children;
-		if(tamanoFF.length==3){
-			document.getElementById('fechafinalizacion').parentElement.removeChild(tamanoFF[2]);	
-		}
+		document.getElementById('capital').parentElement.removeChild(tamanoC[2]);	
 	}
+	var tamanoFC = document.getElementById('fechaconcesion').parentElement.children;
+	if(tamanoFC.length==3 && validateFC){
+		document.getElementById('fechaconcesion').classList.remove('error');
+		document.getElementById('fechaconcesion').parentElement.removeChild(tamanoFC[2]);	
+	}
+	var tamanoFF = document.getElementById('fechafinalizacion').parentElement.children;
+	if(tamanoFF.length==3 && validateFF){
+		document.getElementById('fechafinalizacion').classList.remove('error');
+		document.getElementById('fechafinalizacion').parentElement.removeChild(tamanoFF[2]);	
+	}
+
 	return validate;
 
 }
 
 function selectBeneficiary(btn) {
-	var beneficiario = btn.value;
-	document.getElementById('beneficiario').value=beneficiario;
+	var valor = btn.value;
+	var beneficiario = valor.split(';')[0];
+	var numcuenta = valor.split(';')[1];
+	var entidad = valor.split(';')[2];
+	if((beneficiario!=null || beneficiario!=undefined || beneficiario!="") && (numcuenta!=null || numcuenta!=undefined || numcuenta!="") && (entidad!=null || entidad!=undefined || entidad!="")){
+		document.getElementById('beneficiario').value=beneficiario;
+		document.getElementById('banco').value=entidad;
+		document.getElementById('numcuenta').value=numcuenta;
+	}
 }
 
 function validateTransaccion(){
 	var span;
 	span = document.createElement('SPAN');
-	span.appendChild(document.createTextNode("Rellenar"));
+	span.appendChild(document.createTextNode("Rellenar Correctamente"));
 	span.setAttribute("name","error");
-	span.setAttribute("class","alert-danger");	
+	span.setAttribute("class","alert-danger");
+	
+	var span2;
+	span2 = document.createElement('SPAN');
+	span2.appendChild(document.createTextNode("Rellenar Correctamente"));
+	span2.setAttribute("name","error");
+	span2.setAttribute("class","alert-danger");	
+	
+	var span3;
+	span3 = document.createElement('SPAN');
+	span3.appendChild(document.createTextNode("Rellenar Correctamente"));
+	span3.setAttribute("name","error");
+	span3.setAttribute("class","alert-danger");	
+	
+	var span4;
+	span4 = document.createElement('SPAN');
+	span4.appendChild(document.createTextNode("Rellenar Correctamente"));
+	span4.setAttribute("name","error");
+	span4.setAttribute("class","alert-danger");	
+	
+	var span5;
+	span5 = document.createElement('SPAN');
+	span5.appendChild(document.createTextNode("Rellenar Correctamente"));
+	span5.setAttribute("name","error");
+	span5.setAttribute("class","alert-danger");	
+	
 	var beneficiario = document.getElementById('beneficiario').value;
 	var banco = document.getElementById('banco').value;
 	var numCuenta = document.getElementById('numcuenta').value;
 	var concepto = document.getElementById('concepto').value;
 	var importe = document.getElementById('importe').value;
 	var validateT = true;
+	var validateBene = true;
+	var validateNumcuenta = true;
+	var validateBanco = true;
+	var validateConcepto = true;
+	var validateImporte = true;
+	
 	if((beneficiario==null || beneficiario==undefined || beneficiario=="")){
-		document.getElementById('beneficiario').appendChild(span);
+		document.getElementById('beneficiario').classList.add('error');
+		document.getElementById('beneficiario').parentElement.appendChild(span);
 		validateT = false;
+		validateBene=false;
 	}
 	if((banco==null || banco==undefined || banco=="")){
-		document.getElementById('banco').appendChild(span);
+		document.getElementById('banco').classList.add('error');
+		document.getElementById('banco').parentElement.appendChild(span2);
 		validateT = false;
+		validateBanco = false;
 	}
 	if((numCuenta==null || numCuenta==undefined || numCuenta=="")){
-		document.getElementById('numcuenta').appendChild(span);
+		document.getElementById('numcuenta').classList.add('error');
+		document.getElementById('numcuenta').parentElement.appendChild(span3);
 		validateT = false;
+		validateNumcuenta = false;
 	}
 	if((concepto==null || concepto==undefined || concepto=="")){
-		document.getElementById('concepto').appendChild(span);
+		document.getElementById('concepto').classList.add('error');
+		document.getElementById('concepto').parentElement.appendChild(span4);
 		validateT = false;
+		validateConcepto = false;
 	}
 	if((importe==null || importe==undefined || importe=="")){
-		document.getElementById('importe').appendChild(span);
+		document.getElementById('importe').classList.add('error');
+		document.getElementById('importe').parentElement.appendChild(span5);
 		validateT = false;
+		validateImporte = false;
+	}	
+	var tamanoBene = document.getElementById('beneficiario').parentElement.children;
+	if(tamanoBene.length==3 && validateBene){
+		document.getElementById('beneficiario').classList.remove('error');
+		document.getElementById('beneficiario').parentElement.removeChild();
 	}
-	if(validateT){
-		var tamanoBene = document.getElementById('beneficiario').parentElement.children;
-		if(tamanoBene.length==3){
-			document.getElementById('beneficiario').parentElement.removeChild();
-		}
-		var tamanoBanc = document.getElementById('banco').parentElement.children;
-		if(tamanoBanc.length==3){
-			document.getElementById('banco').parentElement.removeChild();
-		}
-		var tamanoNumC = document.getElementById('numcuenta').parentElement.children;
-		if(tamanoNumC.length==3){
-			document.getElementById('numcuenta').parentElement.removeChild();
-		}
-		var tamanoConc = document.getElementById('concepto').parentElement.children;
-		if(tamanoConc.length==3){
-			document.getElementById('concepto').parentElement.removeChild([2]);
-		}
-		var tamanoImp = document.getElementById('importe').parentElement.children;
-		if(tamanoImp.length==3){
-			document.getElementById('importe').parentElement.removeChild([2]);
-		}
+	var tamanoBanc = document.getElementById('banco').parentElement.children;
+	if(tamanoBanc.length==3 && validateBanco){
+		document.getElementById('banco').classList.remove('error');
+		document.getElementById('banco').parentElement.removeChild();
+	}
+	var tamanoNumC = document.getElementById('numcuenta').parentElement.children;
+	if(tamanoNumC.length==3 && validateNumcuenta){
+		document.getElementById('numcuenta').classList.remove('error');
+		document.getElementById('numcuenta').parentElement.removeChild();
+	}
+	var tamanoConc = document.getElementById('concepto').parentElement.children;
+	if(tamanoConc.length==3 && validateConcepto){
+		document.getElementById('concepto').classList.remove('error');
+		document.getElementById('concepto').parentElement.removeChild([2]);
+	}
+	var tamanoImp = document.getElementById('importe').parentElement.children;
+	if(tamanoImp.length==3 && validateImporte){
+		document.getElementById('importe').classList.remove('error');
+		document.getElementById('importe').parentElement.removeChild([2]);
+		
 	}
 	
 	return validateT;
+}
+function validateOperacion(){
+	var span;
+	span = document.createElement('SPAN');
+	span.appendChild(document.createTextNode("Rellenar Correctamente"));
+	span.setAttribute("name","error");
+	span.setAttribute("class","alert-danger");
+	
+	var span2;
+	span2 = document.createElement('SPAN');
+	span2.appendChild(document.createTextNode("Rellenar Correctamente"));
+	span2.setAttribute("name","error");
+	span2.setAttribute("class","alert-danger");
+	
+	var span3;
+	span3 = document.createElement('SPAN');
+	span3.appendChild(document.createTextNode("Rellenar Correctamente"));
+	span3.setAttribute("name","error");
+	span3.setAttribute("class","alert-danger");
+	
+	var span4;
+	span4 = document.createElement('SPAN');
+	span4.appendChild(document.createTextNode("Rellenar Correctamente"));
+	span4.setAttribute("name","error");
+	span4.setAttribute("class","alert-danger");
+	
+	var span5;
+	span5= document.createElement('SPAN');
+	span5.appendChild(document.createTextNode("Rellenar Correctamente"));
+	span5.setAttribute("name","error");
+	span5.setAttribute("class","alert-danger");
+	
+	var nombreOp = document.getElementsByName("nombreOperacion")[0].value;
+	var tipoOp = document.getElementsByName("tipoOperacion")[0].value;
+	var cuantia = document.getElementsByName("cuantia")[0].value;
+	var fechaOp = document.getElementsByName("fechaOperacion")[0].value;
+	var fechaV = document.getElementsByName("fechaValor")[0].value;
+	
+	var validateOp=true;
+	var validateNombre=true;
+	var validateTipo=true;
+	var validateCuantia=true;
+	var validateFechaOp=true;
+	var validateFechaV=true;
+	
+	if(nombreOp==null || nombreOp==undefined || nombreOp==""){
+		document.getElementsByName('nombreOperacion')[0].classList.add('error');
+		document.getElementsByName('nombreOperacion')[0].parentElement.appendChild(span);
+		validateNombre = false;
+		validateOp=false;
+	}
+	
+	if(tipoOp==null || tipoOp==undefined || tipoOp==""){
+		document.getElementsByName('tipoOperacion')[0].classList.add('error');
+		document.getElementsByName('tipoOperacion')[0].parentElement.appendChild(span2);
+		validateTipo = false;
+		validateOp=false;
+	}
+	if((cuantia==null || cuantia==undefined || cuantia=="")){
+		document.getElementsByName('cuantia')[0].classList.add('error');
+		document.getElementsByName('cuantia')[0].parentElement.appendChild(span3);
+		validateCuantia = false;
+		validateOp=false;
+	}
+	if(fechaOp==null || fechaOp==undefined || fechaOp==""){
+		document.getElementsByName('fechaOperacion')[0].classList.add('error');
+		document.getElementsByName('fechaOperacion')[0].parentElement.appendChild(span4);
+		validateFechaOp = false;
+		validateOp=false;
+	}
+	if(fechaV==null || fechaV==undefined || fechaV==""){
+		document.getElementsByName('fechaValor')[0].classList.add('error');
+		document.getElementsByName('fechaValor')[0].parentElement.appendChild(span5);
+		validateFechaV = false;
+		validateOp=false;
+	}
+	var tamanoNom = document.getElementsByName('nombreOperacion')[0].parentElement.children;
+	if(tamanoNom.length==3 && validateNombre){
+		document.getElementsByName('nombreOperacion')[0].classList.remove('error');
+		document.getElementsByName('nombreOperacion')[0].parentElement.removeChild[2];
+	}
+	var tamanoTipo = document.getElementsByName('tipoOperacion')[0].parentElement.children;
+	if(tamanoTipo.length==2 && validateTipo){
+		document.getElementsByName('tipoOperacion')[0].classList.remove('error');
+		document.getElementsByName('tipoOperacion')[0].parentElement.removeChild[1];
+	}
+	var tamanoCuantia = document.getElementsByName('cuantia')[0].parentElement.children;
+	if(tamanoCuantia.length==2 && validateCuantia){
+		document.getElementsByName('cuantia')[0].classList.remove('error');
+		document.getElementsByName('cuantia')[0].parentElement.removeChild[1];
+	}
+	var tamanoFechaOp = document.getElementsByName('fechaOperacion')[0].parentElement.children;
+	if(tamanoFechaOp.length==2 && validateFechaOp){
+		document.getElementsByName('fechaOperacion')[0].classList.remove('error');
+		document.getElementsByName('fechaOperacion')[0].parentElement.removeChild[1];
+	}
+	var tamanoFechaV = document.getElementsByName('fechaValor')[0].parentElement.children;
+	if(tamanoFechaV.length==2 && validateFechaV){
+		document.getElementsByName('fechaValor')[0].classList.remove('error');
+		document.getElementsByName('fechaValor')[0].parentElement.removeChild[1];
+	}
+	return validateOp;
+}
+function validateRegistro(){
+	
 }

@@ -24,7 +24,6 @@ public class servletPDF extends HttpServlet {
      */
     public servletPDF() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -32,10 +31,12 @@ public class servletPDF extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			File jsp = new File(request.getSession().getServletContext().getRealPath(request.getServletPath()));
+			File dir = jsp.getParentFile();
 			String extracto = request.getParameter("extracto");
 			if (extracto != null && extracto != "") {
 				HttpSession sesion = request.getSession();
-				String fileName = "C:\\Users\\carlo\\workspace\\ProyectoFinal\\WebContent\\usuarios\\"
+				String fileName = dir.getAbsolutePath() + "\\usuarios\\"
 						+ sesion.getAttribute("user").toString() + "\\" + request.getParameter("extracto").toString();
 				String fileType = "";
 				if (extracto.contains(".pdf")) {
@@ -70,7 +71,6 @@ public class servletPDF extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

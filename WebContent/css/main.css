@@ -99,6 +99,22 @@ article{
 	padding-top: 17px;
     color:#777;
 }
+#main-menu.navbar-default .dropdown-menu.dropdown-menu-aux{
+	background-color: rgba(240, 240, 240, 0.9);
+}
+#main-menu.navbar-default .dropdown-menu.dropdown-menu-aux>li>a{
+	border-top: 1px solid #EEE;
+	color: #777;
+}
+#main-menu.navbar-default .dropdown-menu.dropdown-menu-aux>li:hover{
+	border-left-color: #8BC34A;
+    color: #8BC34A;
+}
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+    background-color: #FFF;
+    border-color: #337ab7;
+}
+
 
 h1,
 h2,

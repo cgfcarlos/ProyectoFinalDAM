@@ -1,5 +1,6 @@
 package servlets;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,6 +46,8 @@ public class servletExcel extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			File jsp = new File(request.getSession().getServletContext().getRealPath(request.getServletPath()));
+			File dir = jsp.getParentFile();
 			HttpSession sesion = request.getSession();
 			List<Operacion> operaciones = new ArrayList<Operacion>();
 			operaciones = (ArrayList<Operacion>) sesion.getAttribute("operaciones");
@@ -98,7 +101,7 @@ public class servletExcel extends HttpServlet {
 			}
 			String NOMBRE_DOCUMENTO = "Extracto_" + Calendar.getInstance().getTimeInMillis() + ".xlsx";
 			try (FileOutputStream outputStream = new FileOutputStream(
-					"C:\\Users\\carlo\\workspace\\ProyectoFinal\\WebContent\\usuarios\\"
+					dir.getAbsolutePath() + "\\usuarios\\"
 							+ sesion.getAttribute("user").toString() + "\\" + NOMBRE_DOCUMENTO)) {
 				workbook.write(outputStream);
 				request.getRequestDispatcher("main.jsp").forward(request, response);

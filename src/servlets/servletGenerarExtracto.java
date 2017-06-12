@@ -57,8 +57,10 @@ public class servletGenerarExtracto extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-
-			// response.getWriter().append("Served at: ").append(request.getContextPath());
+			File jsp = new File(request.getSession().getServletContext().getRealPath(request.getServletPath()));
+			File dir = jsp.getParentFile();
+			System.out.println(jsp.getName());
+			System.out.println(dir.getAbsolutePath());
 			Date currentDate = new Date();
 			HttpSession sesion = request.getSession();
 			CuentaBancaria cuenta = (CuentaBancaria) sesion.getAttribute("cuenta");
@@ -68,13 +70,13 @@ public class servletGenerarExtracto extends HttpServlet {
 			String context = request.getContextPath();
 			System.out.println(context);
 
-			String ruta = context + "/WebContent/usuarios/" + sesion.getAttribute("user").toString() + "/";
+			String ruta = context + "/usuarios/" + sesion.getAttribute("user").toString() + "/";
 			System.out.println(ruta);
 			String NOMBRE_DOCUMENTO = "Extracto_" + currentDate.getTime() + ".pdf";
 			// Creamos el documento.
 			Document documento = new Document();
 			// Creamos el fichero con el nombre
-			File f = new File("C:\\Users\\carlo\\workspace\\ProyectoFinal\\WebContent\\usuarios\\"
+			File f = new File(dir.getAbsolutePath() + "\\usuarios\\"
 					+ sesion.getAttribute("user").toString() + "\\" + NOMBRE_DOCUMENTO);
 			// f.createNewFile();
 			f.setReadable(true);
@@ -160,15 +162,17 @@ public class servletGenerarExtracto extends HttpServlet {
 			tabla.addCell(cell5);
 
 			for (Operacion o : operaciones) {
-				tabla.addCell(o.getNombreOperacion());
-				tabla.addCell(o.getTipoOperacion());
-				tabla.addCell(String.valueOf(o.getCuantia().intValue()));
-				tabla.addCell(o.getFechaOperacion().toString());
-				tabla.addCell(o.getFechaValor().toString());
-				sum = sum.add(o.getCuantia());
+				if (Calendar.getInstance().get(Calendar.MONTH) == ((o.getFechaOperacion().getMonth()) + 1)) {
+					tabla.addCell(o.getNombreOperacion());
+					tabla.addCell(o.getTipoOperacion());
+					tabla.addCell(String.valueOf(o.getCuantia().intValue()));
+					tabla.addCell(o.getFechaOperacion().toString());
+					tabla.addCell(o.getFechaValor().toString());
+					sum = sum.add(o.getCuantia());
+				}
 			}
 
-			BigDecimal resultado = cuenta.getSaldo().subtract(sum);
+			BigDecimal resultado = cuenta.getSaldo().add(sum);
 
 			Class.forName("com.mysql.jdbc.Driver");
 
@@ -203,10 +207,9 @@ public class servletGenerarExtracto extends HttpServlet {
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 
