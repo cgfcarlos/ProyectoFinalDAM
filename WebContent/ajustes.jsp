@@ -32,7 +32,7 @@
 	%>
 	
 	<%if(sesion.getAttribute("error")!=null && sesion.getAttribute("error")!=""){ %>
-		<div class="modal" id="errorajustesModal" tabindex="-1" style="display: block;">
+		<div class="modal animated fadeIn" id="errorajustesModal" tabindex="-1" style="display: block;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -59,7 +59,7 @@
         </div>
     </div>
 	<%} %>
-	<div class="modal" id="deleteModal" tabindex="-1">
+	<div class="modal animated fadeIn" id="deleteModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -108,6 +108,7 @@
 							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="operaciones.jsp">Ingreso/Gasto</a></li>
 							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="prestamo.jsp">Préstamo</a></li>
 							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="transaccion.jsp">Transacción</a></li>
+							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="historial.jsp">Historial</a></li>
 							    </ul>
 					  		</div>
                        	</li>
@@ -167,8 +168,13 @@
 						</div>
 						<div class="form-group">
 							<select class="form-control" name="tipoCuenta" name="tipoCuenta">
+								<%if(cuentaBancaria.getTipoCuenta()=="Corriente"){ %>
 								<option>Corriente</option>
 								<option>Ahorros</option>
+								<%} else {%>
+								<option>Ahorros</option>
+								<option>Corriente</option>
+								<%} %>
 							</select>
 						</div>
 						<div class="form-group">
@@ -184,7 +190,7 @@
     			</div>
     			<div class="form-group text-center">
 						<input class="btn btn-primary" type="submit" name="crear" value="Guardar Cambios">
-						<button class="btn btn-primary" data-target="#deleteModal" data-toggle="modal">Borrar Usuario</button>
+						<span class="btn btn-primary" data-target="#deleteModal" data-toggle="modal">Borrar Usuario</span>
 				</div>
    			</form>
     	</div>

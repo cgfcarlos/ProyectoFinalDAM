@@ -92,11 +92,20 @@ public class servletRegistro extends HttpServlet {
 				
 				String queryComprob = "SELECT usuarioid FROM usuario WHERE nickusuario LIKE '" + nick
 						+ "' OR emailusuario LIKE '" + email + "'";
-
 				ResultSet filasComprob = st.executeQuery(queryComprob);
 
-				if (!filasComprob.first()) {
-					filasComprob.close();
+				String queryComprobCuenta = "SELECT cuentabancariaid FROM cuentabancaria WHERE numerocuenta LIKE '"
+						+ numCuenta + "'";
+				ResultSet filasComprobCuenta = st.executeQuery(queryComprobCuenta);
+
+
+				boolean comprob = !filasComprob.first();
+				filasComprob.close();
+				boolean comprobCuenta = !filasComprobCuenta.first();
+				filasComprobCuenta.close();
+
+				if (comprob && comprobCuenta) {
+
 					String query = "INSERT INTO usuario (dniusuario, nombreusuario, apellidosusuario, nickusuario, passwordusuario, emailusuario, tlfusuario) VALUES ('"
 							+ dni + "','" + nombre + "','" + apellidos + "','" + nick + "','" + pass + "','" + email
 							+ "','" + tlf + "')";
@@ -109,7 +118,7 @@ public class servletRegistro extends HttpServlet {
 						File dir = jsp.getParentFile();
 						File theDir = new File(dir.getAbsolutePath() + "\\usuarios\\" + nick);
 
-						// if the directory does not exist, create it
+						// Crear directorio
 						if (!theDir.exists()) {
 
 							boolean result = false;
@@ -118,7 +127,7 @@ public class servletRegistro extends HttpServlet {
 								theDir.mkdir();
 								result = true;
 							} catch (SecurityException se) {
-								// handle it
+
 							}
 							if (result) {
 								System.out.println("DIR created");
@@ -131,16 +140,12 @@ public class servletRegistro extends HttpServlet {
 							usuarioid = rs.getInt(1);
 						}
 						rs.close();
-						String queryComprobCuenta = "SELECT cuentabancariaid FROM cuentabancaria WHERE numerocuenta LIKE '"
-								+ numCuenta + "'";
-						ResultSet filasComprobCuenta = st.executeQuery(queryComprobCuenta);
-						// TODO:REVISAR registro
-						if (!filasComprobCuenta.first()) {
-							filasComprobCuenta.close();
+
+
 							query = "UPDATE cuentabancaria SET numerocuenta='" + numCuenta + "', titularcuenta='"
 									+ titularCuenta + "',entidadcuenta='" + entidad + "', tipocuenta'" + tipoCuenta
 									+ "',paisdomiciliacion='" + pais + "',bic='" + bic + "',saldo=" + saldo
-									+ " WHERE cuentabancariaid = last_insert_id()";
+									+ " WHERE usuarioid = " + usuarioid;
 							int filasCuenta = st.executeUpdate(query);
 							if (filasCuenta == 1) {
 								String queryC = "SELECT titularcuenta, numerocuenta, entidadcuenta, saldo, tipocuenta FROM cuentabancaria JOIN usuario ON cuentabancaria.usuarioid LIKE usuario.usuarioid WHERE nickusuario LIKE '"
@@ -185,19 +190,14 @@ public class servletRegistro extends HttpServlet {
 								sesion.setAttribute("error", "Ha ocurrido un error al registrar la cuenta bancaria");
 								request.getRequestDispatcher("registro.jsp").forward(request, response);
 							}
-						} else {
-							filasComprobCuenta.close();
-							sesion.setAttribute("error", "La cuenta bancaria ya existe");
-							request.getRequestDispatcher("registro.jsp").forward(request, response);
-						}
+
 					} else {
 						sesion.setAttribute("error", "Ha ocurrido un error al registrar el usuario");
 						request.getRequestDispatcher("registro.jsp").forward(request, response);
 					}
 				}
 				else {
-					filasComprob.close();
-					sesion.setAttribute("error", "Email o usuario ya estan en la base de datos");
+					sesion.setAttribute("error", "Email, usuario, o el número de cuenta ya estan en la base de datos");
 					request.getRequestDispatcher("registro.jsp").forward(request, response);
 				}
 

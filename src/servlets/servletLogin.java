@@ -34,27 +34,17 @@ public class servletLogin extends HttpServlet {
      */
     public servletLogin() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		if (request.getParameter("user") != null || request.getParameter("pwd") != null) {
 			String user = request.getParameter("user");
 			String pass = request.getParameter("pwd");
 
 			List<Operacion> operaciones = new ArrayList<Operacion>();
-
-			/*
-			 * int userId = 0; String dni = ""; String nombreUser = ""; String apellidosUser = ""; String nick = "";
-			 * String password = ""; String emailUser = ""; String tlfUser = "";
-			 */
-			// nombreoperacion, tipooperacion, cuantia, fechaoperacion,
-		// id dni nom ap nick pass email tlf
-		// 1 53195877M Carlos González Fuentes cgfcarlos cgfcarlos carloscrg@hotmail.es 639540920
 
 			try {
 				HttpSession sesion = request.getSession();
@@ -66,7 +56,8 @@ public class servletLogin extends HttpServlet {
 
 				Statement st = con.createStatement();
 
-				String queryU = "SELECT * from usuario WHERE nickusuario LIKE '" + user + "' AND passwordusuario LIKE '"
+				String queryU = "SELECT * from usuario WHERE nickusuario LIKE '" + user + "' OR emailusuario LIKE '"
+						+ user + "' AND passwordusuario LIKE '"
 						+ pass + "'";
 				ResultSet resultSet = st.executeQuery(queryU);
 				Usuario us = new Usuario();

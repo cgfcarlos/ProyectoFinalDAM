@@ -79,7 +79,7 @@
                         <li class="scroll"><a href="main.jsp">Inicio </a></li>
                         <!-- <li class="scroll"><a href="servletGenerarExtracto">Generar Extracto</a></li> -->
                         <!-- <li class="scroll"><a href="#portfolio">Plantilla</a></li>-->
-                        <li class="scroll" role="button">
+                        <li class="scroll active" role="button">
                         	<div class="dropdown-op">
 							    <a class="dropdown-toggle color-gray" data-toggle="dropdown">Operaciones
 							    <span class="caret"></span></a>
@@ -87,13 +87,14 @@
 							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="operaciones.jsp">Ingreso/Gasto</a></li>
 							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="prestamo.jsp">Préstamo</a></li>
 							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="transaccion.jsp">Transacción</a></li>
+							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="historial.jsp">Historial</a></li>
 							    </ul>
 					  		</div>
                        	</li>
                         <!--<li class="scroll"><a href="#pricing">Conocimientos</a></li>
                         <li class="scroll"><a href="#blog">  Blog </a></li
                         <li class="scroll"><a href="#testimonial"> Testimonial </a></li>-->
-                       <li class="scroll active"><a href="ajustes.jsp">Ajustes</a></li>
+                       <li class="scroll"><a href="ajustes.jsp">Ajustes</a></li>
                        <li class="scroll"><a href="servletLogout">Cerrar sesión</a></li>
                     </ul>
                 </div>
@@ -146,15 +147,15 @@
     		<form action="servletTransaccion" method="post" onsubmit="return validateTransaccion();">
     			<div class="row">
     				<label for="beneficiario">Beneficiario</label>
-    				<input type="text" name="beneficiario" id="beneficiario" class="form-control" placeholder="Nombre del beneficiario" disabled="disabled">
+    				<input type="text" name="beneficiario" id="beneficiario" class="form-control" placeholder="Nombre del beneficiario" readonly>
     			</div>
     			<div class="row">
     				<label for="banco">Banco</label>
-    				<input type="text" name="banco" id="banco" class="form-control" placeholder="Nombre entidad Bancaria" disabled="disabled">
+    				<input type="text" name="banco" id="banco" class="form-control" placeholder="Nombre entidad Bancaria" readonly>
     			</div>
     			<div class="row">
     				<label for="numcuenta">Número de cuenta</label>
-    				<input type="text" class="form-control" name="numcuenta" id="numcuenta" placeholder="Cuenta Bancaria" disabled="disabled">
+    				<input type="text" class="form-control" name="numcuenta" id="numcuenta" placeholder="Cuenta Bancaria" readonly>
     			</div>
     			<div class="row">
     				<label for="concepto">Concepto</label>

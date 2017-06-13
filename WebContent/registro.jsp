@@ -24,7 +24,7 @@
   
 </head><!--/head-->
 <body id="home" class="homepage">
-
+	<%HttpSession sesion = request.getSession(); %>
 	<header id="header">
         <nav id="main-menu" class="navbar navbar-default navbar-fixed-top top-nav-collapse" role="banner">
             <div class="container">
@@ -62,58 +62,83 @@
 			<div class="row">
 				<h2 class="text-center">Crear una cuenta</h2>
 			</div>
-			<%if(request.getAttribute("error")!=null && request.getAttribute("error")!=""){ %>
+			<%if(sesion.getAttribute("error")!=null && sesion.getAttribute("error")!=""){ %>
 			<div class="row text-center">
-				<span class="alert alert-danger"><%=request.getAttribute("error") %></span>
+				<span class="alert alert-danger"><%=sesion.getAttribute("error") %></span>
 			</div>
-			<%} %>
+			<%
+				sesion.removeAttribute("error");
+			} %>
 			<!-- nombre, apellidos, dni, cuentaBancaria, nick, contraseña, email, tlf -->
-			<form action="servletRegistro" method="post">
+			<form action="servletRegistro" method="post" onsubmit="return validateRegistro();">
 				<fieldset>
 					<legend>Datos Personales</legend>
-					<div class="form-group">
-						<input class="form-control" required type="text" name="nombre" placeholder="Nombre">
-						<input class="form-control" required type="text" name="apellidos" placeholder="Apellidos">
+					<div class="row">
+						<input class="form-control" type="text" name="nombre" placeholder="Nombre">
 					</div>
-					<div class="form-group">
-						<input class="form-control" required type="text" name="dni" placeholder="DNI">
-						<input class="form-control" required type="tel" name="tlf" placeholder="Teléfono">
+					<div class="row"><br></div>
+					<div class="row">
+						<input class="form-control" type="text" name="apellidos" placeholder="Apellidos">
 					</div>
-					<div class="form-group">
-						<input class="form-control" required type="email" name="email" placeholder="Email">
+					<div class="row"><br></div>
+					<div class="row">
+						<input class="form-control" type="text" name="dni" placeholder="DNI">
 					</div>
-					<div class="form-group">
-						<input class="form-control" required type="text" name="nick" placeholder="Usuario">
-						<input class="form-control" required type="password" name="pass" placeholder="Contraseña">
+					<div class="row"><br></div>
+					<div class="row">
+						<input class="form-control" type="tel" name="tlf" placeholder="Teléfono">
+					</div>
+					<div class="row"><br></div>
+					<div class="row">
+						<input class="form-control" type="email" name="email" placeholder="Email">
+					</div>
+					<div class="row"><br></div>
+					<div class="row">
+						<input class="form-control" type="text" name="nick" placeholder="Usuario">
+					</div>
+					<div class="row"><br></div>
+					<div class="row">
+						<input class="form-control" type="password" name="pass" placeholder="Contraseña">
 					</div>
 				</fieldset>
+				<div class="row"><br></div>
 				<fieldset>
 					<legend>Datos Bancarios</legend>
-					<div class="form-group">
-						<input class="form-control" required type="text" name="numCuenta" placeholder="Numero de cuenta">
+					<div class="row">
+						<input class="form-control" type="text" name="numCuenta" placeholder="Numero de cuenta">
 					</div>
-					<div class="form-group">
-						<input class="form-control" required type="text" name="titularCuenta" placeholder="Titular">
-						<input class="form-control" required type="text" name="entidad" placeholder="Entidad Bancaria">
+					<div class="row"><br></div>
+					<div class="row">
+						<input class="form-control" type="text" name="titularCuenta" placeholder="Titular">
 					</div>
-					<div class="form-group">
+					<div class="row"><br></div>
+					<div class="row">
+						<input class="form-control" type="text" name="entidad" placeholder="Entidad Bancaria">
+					</div>
+					<div class="row"><br></div>
+					<div class="row">
 						<select class="form-control" name="tipoCuenta" name="tipoCuenta">
 							<option>Corriente</option>
 							<option>Ahorros</option>
 						</select>
 					</div>
-					<div class="form-group">
-						<input class="form-control" required type="text" name="pais" placeholder="Pais Domiciliación">
+					<div class="row"><br></div>
+					<div class="row">
+						<input class="form-control" type="text" name="pais" placeholder="Pais Domiciliación">
 					</div>
-					<div class="form-group">
-						<input class="form-control" required type="text" name="bic" placeholder="BIC">
+					<div class="row"><br></div>
+					<div class="row">
+						<input class="form-control" type="text" name="bic" placeholder="BIC">
 					</div>
-					<div class="form-group">
-						<input class="form-control" required type="number" name="saldo" placeholder="Saldo" onkeypress="validateNumber(this, evt)">
+					<div class="row"><br></div>
+					<div class="row">
+						<input class="form-control" type="number" name="saldo" placeholder="Saldo" onkeypress="validateNumber(this, evt)">
 					</div>
-					<div class="form-group text-center">
+					<div class="row"><br></div>
+					<div class="row text-center">
 						<input class="btn btn-primary" type="submit" name="crear" value="Crear cuenta">
 					</div>
+					<div class="row"><br></div>
 				</fieldset>
 			</form>
 		</div>

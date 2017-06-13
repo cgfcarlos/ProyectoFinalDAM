@@ -41,7 +41,7 @@
                     <ul class="nav navbar-nav">
                         <li class="scroll"><a href="main.jsp">Inicio </a></li>
                         <!-- <li class="scroll"><a href="#portfolio">Plantilla</a></li>-->
-                        <li class="scroll" role="button">
+                        <li class="scroll active" role="button">
                         	<div class="dropdown-op">
 							    <a class="dropdown-toggle color-gray" data-toggle="dropdown">Operaciones
 							    <span class="caret"></span></a>
@@ -49,6 +49,7 @@
 							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="operaciones.jsp">Ingreso/Gasto</a></li>
 							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="prestamo.jsp">Préstamo</a></li>
 							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="transaccion.jsp">Transacción</a></li>
+							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="historial.jsp">Historial</a></li>
 							    </ul>
 					  		</div>
                        	</li>
@@ -64,72 +65,72 @@
         <h2 class="text-center">Préstamos</h2>
         <div class="container">
             <a data-toggle="popover" data-placement="top" data-content="Un préstamo bancario es el crédito que concede un banco. La ganancia del banco estará en que, al devolver el dinero, la persona tendrá que entregar un adicional en concepto de intereses." onclick="displayPopover()"><span class="glyphicon glyphicon-info-sign"></span></a>
-            <div class="row">
-                <div class="col-md-6">
-                    <span>Capital (Montante)</span>
-                    <input class="form-control" type="number" name="capital" id="capital" onkeypress="return validateNumber(this,event);">
-                </div>
-                <div class="col-md-6">
-                    <span>Interés</span>
-                    <select class="form-control" id="interes" name="interes">
-                        <option>3%</option>
-                        <option>4%</option>
-                        <option>5%</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <span>Número de cuotas</span>
-                    <input class="form-control disabled" id="numcuotas" disabled="disabled" type="number" name="numcuotas" value="12">
-                </div>
-                <div class="col-md-6">
-                    <span>Forma de pago</span>
-                    <input class="form-control disabled" id="pago" disabled="disabled" type="text" name="pago" value="Mensual">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <span>Fecha de Concesión</span>
-                    <input class="form-control" id="fechaconcesion" type="date" name="fechaconcesion" >
-                </div>
-                <div class="col-md-6">
-                    <span>Fecha de Finalización</span>
-                    <input class="form-control" id="fechafinalizacion" type="date" name="fechafinalizacion">
-                </div>
-            </div>
-            <div class="row"><br></div>
-            <div class="row">
-                <small>*Nota: Calcular muestra una tabla con la amortización del préstamo. Realizar Prestamo realiza la operacion de ingresos y gastos en la cuenta (sin calcular el saldo restante)</small>
-            </div>
-            <div class="row"><br></div>
-            <div class="row text-center">
-                <button class="btn btn-primary" onclick="amortizacion()">Calcular</button>
-            </div>
-            <div class="row"><br></div>
-            <div class="row">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Num Pagos</th>
-                            <th>Amortización</th>
-                            <th>Anualidad</th>
-                            <th>Capital Amortizado</th>
-                            <th>Capital Pendiente</th>
-                            <th>Intereses</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table">
-                        
-                    </tbody>
-                    <tfoot></tfoot>
-                </table>
-            </div>
-            <div class="row text-center">
-                <form action="servletPrestamo" method="get" onsubmit="return validatePrestamo();">
-                    <input type="submit" class="btn btn-primary"  value="Realizar Préstamo" id="realizarPrestamo" disabled="disabled">
-                </form>
-            </div>
+            <form action="servletPrestamo" method="get" onsubmit="return validatePrestamo();">
+	            <div class="row">
+	                <div class="col-md-6">
+	                    <span>Capital (Montante)</span>
+	                    <input class="form-control" type="number" name="capital" id="capital" onkeypress="return validateNumber(this,event);">
+	                </div>
+	                <div class="col-md-6">
+	                    <span>Interés</span>
+	                    <select class="form-control" id="interes" name="interes">
+	                        <option>3%</option>
+	                        <option>4%</option>
+	                        <option>5%</option>
+	                    </select>
+	                </div>
+	            </div>
+	            <div class="row">
+	                <div class="col-md-6">
+	                    <span>Número de cuotas</span>
+	                    <input class="form-control disabled" id="numcuotas" disabled="disabled" type="number" name="numcuotas" value="12">
+	                </div>
+	                <div class="col-md-6">
+	                    <span>Forma de pago</span>
+	                    <input class="form-control disabled" id="pago" disabled="disabled" type="text" name="pago" value="Mensual">
+	                </div>
+	            </div>
+	            <div class="row">
+	                <div class="col-md-6">
+	                    <span>Fecha de Concesión</span>
+	                    <input class="form-control" id="fechaconcesion" type="date" name="fechaconcesion" >
+	                </div>
+	                <div class="col-md-6">
+	                    <span>Fecha de Finalización</span>
+	                    <input class="form-control" id="fechafinalizacion" type="date" name="fechafinalizacion" isreadonly>
+	                </div>
+	            </div>
+	            <div class="row"><br></div>
+	            <div class="row">
+	                <small>*Nota: Calcular muestra una tabla con la amortización del préstamo. Realizar Prestamo realiza la operacion de ingresos y gastos en la cuenta (sin calcular el saldo restante)</small>
+	            </div>
+	            <div class="row"><br></div>
+	            <div class="row text-center">
+	                <span class="btn btn-primary" role="button" onclick="amortizacion()">Calcular</span>
+	            </div>
+	            <div class="row"><br></div>
+		            <div class="row">
+		                <table class="table table-bordered">
+		                    <thead>
+		                        <tr>
+		                            <th>Num Pagos</th>
+		                            <th>Amortización</th>
+		                            <th>Anualidad</th>
+		                            <th>Capital Amortizado</th>
+		                            <th>Capital Pendiente</th>
+		                            <th>Intereses</th>
+		                        </tr>
+		                    </thead>
+		                    <tbody id="table">
+		                        
+		                    </tbody>
+		                    <tfoot></tfoot>
+		                </table>
+		            </div>
+		            <div class="row text-center">
+		                    <input type="submit" class="btn btn-primary"  value="Realizar Préstamo" id="realizarPrestamo" disabled="disabled">
+		            </div>
+            </form>
             <div class="row">
                 <small>*Nota: En el cálculo de la amortización el capital pendiente de la última fila siempre queda aproximado a 0</small>
             </div>

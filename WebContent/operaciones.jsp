@@ -47,7 +47,7 @@
                         <li class="scroll"><a href="main.jsp">Inicio </a></li>
                         <!-- <li class="scroll"><a href="servletGenerarExtracto">Generar Extracto</a></li> -->
                         <!--  <li class="scroll"><a href="#portfolio">Plantilla</a></li>-->
-                        <li class="scroll" role="button">
+                        <li class="scroll active" role="button">
                         	<div class="dropdown-op">
 							    <a class="dropdown-toggle color-gray" data-toggle="dropdown">Operaciones
 							    <span class="caret"></span></a>
@@ -55,13 +55,14 @@
 							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="operaciones.jsp">Ingreso/Gasto</a></li>
 							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="prestamo.jsp">Préstamo</a></li>
 							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="transaccion.jsp">Transacción</a></li>
+							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="historial.jsp">Historial</a></li>
 							    </ul>
 					  		</div>
                        	</li>
                         <!--<li class="scroll"><a href="#pricing">Conocimientos</a></li>
                         <li class="scroll"><a href="#blog">  Blog </a></li
                         <li class="scroll"><a href="#testimonial"> Testimonial </a></li>-->
-                       <li class="scroll"><a href="#get-in-touch">Ajustes</a></li>
+                       <li class="scroll"><a href="ajustes.jsp">Ajustes</a></li>
                        <li class="scroll"><a href="servletLogout">Cerrar sesión</a></li>
                     </ul>
                 </div>

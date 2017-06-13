@@ -97,17 +97,19 @@ public class servletTransaccion extends HttpServlet {
 
 				int rowSub = st.executeUpdate(queryInsert2);
 
-				String updateCuentaP = "UPDATE cuentabancaria SET saldo=" + (cuentaP.getSaldo().subtract(cuantia))
-						+ " WHERE cuentabancariaid=" + cuentaP.getCuentaBancariaId();
-
-				int rowUpdate = st.executeUpdate(updateCuentaP);
-
-				String updateCuenta = "UPDATE cuentabancaria SET saldo =" + (cuenta.getSaldo().add(cuantia))
-						+ " WHERE cuentabancariaid=" + cuenta.getCuentaBancariaId();
-
-				int rowUpdate2 = st.executeUpdate(updateCuenta);
-
-				cuentaP.setSaldo((cuentaP.getSaldo().subtract(cuantia)));
+				/*
+				 * String updateCuentaP = "UPDATE cuentabancaria SET saldo=" + (cuentaP.getSaldo().subtract(cuantia)) +
+				 * " WHERE cuentabancariaid=" + cuentaP.getCuentaBancariaId();
+				 * 
+				 * int rowUpdate = st.executeUpdate(updateCuentaP);
+				 * 
+				 * String updateCuenta = "UPDATE cuentabancaria SET saldo =" + (cuenta.getSaldo().add(cuantia)) +
+				 * " WHERE cuentabancariaid=" + cuenta.getCuentaBancariaId();
+				 * 
+				 * int rowUpdate2 = st.executeUpdate(updateCuenta);
+				 * 
+				 * cuentaP.setSaldo((cuentaP.getSaldo().subtract(cuantia)));
+				 */
 
 				List<Operacion> operaciones = new ArrayList<>();
 				String queryOp = "SELECT nombreoperacion, tipooperacion, cuantia, fechaoperacion, fechavalor FROM operacion WHERE cuentabancariaid LIKE "
@@ -126,13 +128,16 @@ public class servletTransaccion extends HttpServlet {
 				}
 				rs.close();
 
-				if (rowSub == 1 && rowSum == 1 && rowUpdate == 1 && rowUpdate2 == 1) {
+				if (rowSub == 1 && rowSum == 1) {
 					sesion.setAttribute("cuenta", cuentaP);
 					sesion.setAttribute("operaciones", operaciones);
 					request.getRequestDispatcher("main.jsp").forward(request, response);
 
 				}
 
+
+			} else {
+				System.out.println("ERROR");
 			}
 		} catch (Exception ex) {
 			System.out.println(ex);

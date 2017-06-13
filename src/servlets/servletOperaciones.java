@@ -8,7 +8,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -56,11 +57,13 @@ public class servletOperaciones extends HttpServlet {
 				String tipoOperacion = request.getParameter("tipoOperacion");
 				BigDecimal cuantia = BigDecimal.valueOf(Double.valueOf(request.getParameter("cuantia")));
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-				Date fechaOperacion = formatter.parse(request.getParameter("fechaOperacion"));
-				Date fechaValor = formatter.parse(request.getParameter("fechaValor"));
+				Calendar fechaO = new GregorianCalendar();
+				fechaO.setTime(formatter.parse(request.getParameter("fechaOperacion")));
+				Calendar fechaV = new GregorianCalendar();
+				fechaV.setTime(formatter.parse(request.getParameter("fechaValor")));
 
 				if (tipoOperacion == "Gasto") {
-					cuantia = cuantia.multiply(BigDecimal.valueOf(-1));
+					cuantia = cuantia.multiply(new BigDecimal(-1));
 				}
 
 				HttpSession sesion = request.getSession();
@@ -77,10 +80,11 @@ public class servletOperaciones extends HttpServlet {
 				Statement st = con.createStatement();
 
 				String query = "INSERT INTO operacion (nombreoperacion, tipooperacion, cuantia, fechaoperacion, fechavalor, cuentabancariaid) VALUES ('"
-						+ nombreOperacion + "','" + tipoOperacion + "'," + cuantia.doubleValue() + ",'"
-						+ fechaOperacion.getYear() + "-" + (fechaOperacion.getMonth() + 1) + "-"
-						+ fechaOperacion.getDate() + "','" + fechaValor.getYear() + "-" + (fechaValor.getMonth() + 1)
-						+ "-" + fechaValor.getDate() + "'," + cuenta.getCuentaBancariaId() + ")";
+						+ nombreOperacion + "','" + tipoOperacion + "'," + cuantia + ",'"
+						+ fechaO.get(Calendar.YEAR) + "-" + (fechaO.get(Calendar.MONTH) + 1) + "-"
+						+ fechaO.get(Calendar.DATE) + "','" + fechaV.get(Calendar.YEAR) + "-"
+						+ (fechaV.get(Calendar.MONTH) + 1) + "-" + fechaV.get(Calendar.DATE) + "',"
+						+ cuenta.getCuentaBancariaId() + ")";
 
 				int row = st.executeUpdate(query);
 				if (row == 1) {

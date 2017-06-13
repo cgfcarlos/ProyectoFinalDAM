@@ -61,7 +61,7 @@
 		
 	%>
 	
-	<div class="modal" id="extractoModal" tabindex="-1">
+	<div class="modal animated fadeIn" id="extractoModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -108,10 +108,11 @@
                         	<div class="dropdown-op">
 							    <a class="dropdown-toggle color-gray" data-toggle="dropdown">Operaciones
 							    <span class="caret"></span></a>
-							    <ul class="dropdown-menu dropdown-menu-aux">
+							    <ul class="dropdown-menu dropdown-menu-aux animated fadeIn">
 							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="operaciones.jsp">Ingreso/Gasto</a></li>
 							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="prestamo.jsp">Préstamo</a></li>
 							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="transaccion.jsp">Transacción</a></li>
+							      <li class="dropdown-menu-aux-li"><a class="dropdown-menu-aux-li-a" href="historial.jsp">Historial</a></li>
 							    </ul>
 					  		</div>
                        	</li>

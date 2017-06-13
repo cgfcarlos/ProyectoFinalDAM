@@ -32,7 +32,7 @@
 	Usuario us = (Usuario) sesion.getAttribute("usuario");
 	if(sesion.getAttribute("error")!=null && sesion.getAttribute("error")!=""){
 	%>
-	<div class="modal" id="errorloginModal" tabindex="-1" style="display: block;">
+	<div class="modal animated fadeIn" id="errorloginModal" tabindex="-1" style="display: block;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -73,7 +73,7 @@
     </div>
 	<%} %>
 
-    <div class="modal" id="loginModal" tabindex="-1">
+    <div class="modal animated fadeIn" id="loginModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -133,9 +133,9 @@
                        	if(sesion.getAttribute("usuario")==null){
                        	%>
                        	<form method="get" action="servletLogin">
-                       		<input type="text" name="user" placeholder="Usuario" class="form-control-menu form-control">
-                       		<input type="password" name="pwd" id="pwd" placeholder="Contraseña" class="form-control-menu form-control">
-                       		<input type="submit" name="submit" class="btn btn-primary" value="Entrar">
+                       		<input type="text" name="user" placeholder="Usuario" class="form-control-menu form-control input-sm">
+                       		<input type="password" name="pwd" id="pwd" placeholder="Contraseña" class="form-control-menu form-control input-sm">
+                       		<input type="submit" name="submit" class="btn btn-primary input-sm" value="Entrar">
                        		<div class="row">
                        			<a href="registro.jsp">Crear una cuenta</a>
                        		</div>
@@ -290,41 +290,7 @@ en la cual puedes disfrutar de las mismas funcionalidades que en la web :D</p>
         </div><!--/.container-->
     </section><!--/#services-->
     
-    <!--<section id="animated-number">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title text-center wow fadeInDown">Detalles</h2>
-                <p class="text-center wow fadeInDown">Este trabajo fue originado debido  <br> et dolore magna aliqua. Ut enim ad minim veniam</p>
-            </div>
 
-            <div class="row text-center">
-                <div class="col-sm-3 col-xs-6">
-                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
-                        <div class="animated-number" data-digit="136800" data-duration="1000"></div>
-                        <strong>Lorem Ipsum</strong>
-                    </div>
-                </div>
-                <div class="col-sm-3 col-xs-6">
-                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="100ms">
-                        <div class="animated-number" data-digit="1231+" data-duration="1000"></div>
-                        <strong>Lorem Ipsum</strong>
-                    </div>
-                </div>
-                <div class="col-sm-3 col-xs-6">
-                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="200ms">
-                        <div class="animated-number" data-digit="6000" data-duration="1000"></div>
-                        <strong>Lorem Ipsum</strong>
-                    </div>
-                </div>
-                <div class="col-sm-3 col-xs-6">
-                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="300ms">
-                        <div class="animated-number" data-digit="2000" data-duration="1000"></div>
-                        <strong>Lorem Ipsum</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>--><!--/#animated-number-->
     
         <section id="portfolio">
         <div class="container">
@@ -506,7 +472,7 @@ en la cual puedes disfrutar de las mismas funcionalidades que en la web :D</p>
             
             <div class="col-sm-6">
             
-            	<form action="mailto:carloscrg@hotmail.es" method="post" name="contact-form" id="main-contact-form">
+            	<form action="mailto:carloscrg@hotmail.es" method="get" name="contact-form" enctype="text/plain" id="main-contact-form" target="_top">
 	                <div class="form-group">
 	                    <input type="text" required placeholder="Nombre" class="form-control" name="name">
                     </div>
